@@ -76,10 +76,11 @@ while(True):
         x1,y1,x2,y2,s = b
         if s<0.5: continue
         cv2.rectangle(imgshow,(int(x1),int(y1)),(int(x2),int(y2)),(0,255,0),1)
-    cv2.imshow('test',imgshow)
+    #cv2.imshow('test',imgshow)
 
     if args.path=='CAMERA':
         if cv2.waitKey(1) & 0xFF == ord('q'): break
     else:
         cv2.imwrite(args.path[:-4]+'_output.png',imgshow)
-        if cv2.waitKey(0) or True: break
+        break
+        #if cv2.waitKey(0) or True: break
