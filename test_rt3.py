@@ -14,11 +14,14 @@ import numpy as np
 import net_s3fd
 from bbox import *
 
+from pathlib import Path
+home = str(Path.home())
+
 
 def detect(imgs):
 
     use_cuda = torch.cuda.is_available()
-    model = "/home/cybercomml/hakan/SFD_pytorch/data/s3fd_convert.pth"
+    model = os.path.join(home,"Dev/CyberCV/data/s3fd_convert.pth")
     net = getattr(net_s3fd,"s3fd")()
     net.load_state_dict(torch.load(model))
     net.cuda()
