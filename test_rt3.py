@@ -17,8 +17,12 @@ from SFD_pytorch.bbox import *
 from pathlib import Path
 home = str(Path.home())
 
+MIN_CONF_THRESHOLD = 0.5
 
-def detect(imgs):
+def detect(imgs,confidence_threshold):
+
+    if confidence_threshold <= MIN_CONF_THRESHOLD:
+       confidence_threshold = MIN_CONF_THRESHOLD
 
     use_cuda = torch.cuda.is_available()
     model = os.path.join(home,"Dev/CyberCV/SFD_pytorch/data/s3fd_convert.pth")
@@ -62,7 +66,7 @@ def detect(imgs):
                 box = decode(loc,priors,variances)
                 x1,y1,x2,y2 = box[0]*1.0
                 # cv2.rectangle(imgshow,(int(x1),int(y1)),(int(x2),int(y2)),(0,0,255),1)
-                if score >= 0.5:
+                if score >= confidence_threshold:
                     bboxlist.append([x1,y1,x2,y2,score])
         bboxlist = np.array(bboxlist)
         keep = nms(bboxlist,0.3)
