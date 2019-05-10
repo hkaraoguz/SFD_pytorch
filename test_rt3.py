@@ -73,7 +73,7 @@ def detect(imgs,confidence_threshold):
         bboxlist = bboxlist[keep,:]
         img_results.append(bboxlist.tolist())
 
-        #if 0==len(bboxlist): bboxlist=np.zeros((1, 5))
+    torch.cuda.empty_cache() 
     return img_results
 
 #parser = argparse.ArgumentParser(description='PyTorch face detect')
